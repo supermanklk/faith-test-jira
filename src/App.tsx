@@ -3,6 +3,11 @@ import logo from './logo.svg'
 import './App.css'
 console.log('')
 
+// 获取环境变量的地址
+const baseUrl = process.env.REACT_APP_API_URL
+
+console.log(baseUrl)
+
 function App() {
   return (
     <div className='App'>
