@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react'
 import SearchPanel from './SearchPanel/index'
 import List from './List/index'
-import useMount from '../../customHooks/useMount'
+import { useMount } from '../../customHooks/useMount'
 import qs from 'qs'
-import { cleanObject } from '../../utils/index'
-import useDebounce from '../../customHooks/coustomDebounce'
+
+import { cleanObject } from '../../utils'
+import { useDebounce } from '../../customHooks/coustomDebounce'
 const apiUrl = process.env.REACT_APP_API_URL
 const ProjectList = () => {
+  // function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
   const [users, setUsers] = useState([])
   const [param, setParam] = useState({
     name: '',
@@ -14,10 +16,11 @@ const ProjectList = () => {
   })
   const [list, setList] = useState([])
 
-  let debounceParam = useDebounce(param, 2000)
+  // debounceParam 能够拿到类型,原因是 useDebounce 内部使用了泛型
+  let debounceParam = useDebounce(param, 200)
 
   useEffect(() => {
-    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(param))}`).then(async (response) => {
+    fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async (response) => {
       if (response.ok) {
         setList(await response.json())
       }
