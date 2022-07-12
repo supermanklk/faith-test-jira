@@ -1,23 +1,8 @@
 import React from 'react'
-import { login, register } from '../../authProvider'
-const apiUrl = process.env.REACT_APP_API_URL
+import { useAuth } from '../context/authContext'
 
-export default function Login() {
-  const login = (param: { username: string; password: string }) => {
-    // fetch(`${apiUrl}/jira/registerUser`, {
-    fetch(`${apiUrl}/login`, {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json'
-      },
-      body: JSON.stringify(param)
-    }).then(async (response) => {
-      if (response.ok) {
-        let res = await response.json()
-        localStorage.setItem('__token__', res.results.token)
-      }
-    })
-  }
+const UnauthenticatedApp = () => {
+  const { login } = useAuth()
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
@@ -27,6 +12,7 @@ export default function Login() {
     login({ username, password })
     // register({ username, password })
   }
+
   return (
     <div>
       <form onSubmit={handleSubmit}>
@@ -43,3 +29,5 @@ export default function Login() {
     </div>
   )
 }
+
+export default UnauthenticatedApp

@@ -1,5 +1,6 @@
 import React from 'react'
 import { User } from '../SearchPanel/index'
+import './index.css'
 
 interface Project {
   id: string
@@ -16,7 +17,7 @@ interface ListProps {
 
 const List = ({ list, users }: ListProps) => {
   return (
-    <div>
+    <div className='listContent'>
       <table>
         <thead>
           <tr>
