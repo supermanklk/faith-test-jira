@@ -22,7 +22,8 @@ const ProjectList = () => {
   useEffect(() => {
     fetch(`${apiUrl}/projects?${qs.stringify(cleanObject(debounceParam))}`).then(async (response) => {
       if (response.ok) {
-        setList(await response.json())
+        let res = await response.json()
+        setList(res)
       }
     })
   }, [debounceParam])
