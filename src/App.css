@@ -13,6 +13,9 @@ html {
   font-size: 83.33%;
 }
 
-html body #root .App {
+html,
+body,
+#root,
+.App {
   min-height: 100vh;
 }
