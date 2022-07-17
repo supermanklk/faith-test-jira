@@ -8,7 +8,9 @@ html {
   /* 浏览器默认的font-size: 16px */
   /* 16 * 62.5 = 10px */
   /* 1rem = 10px */
-  font-size: 62.5%;
+
+  /* 我这里 83.33 原因是我的浏览器的默认是 12px */
+  font-size: 83.33%;
 }
 
 html body #root .App {
