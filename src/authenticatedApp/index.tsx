@@ -3,13 +3,14 @@ import React from 'react'
 import { useAuth } from '../context/authContext'
 import ProjectList from '../pages/ProjectList'
 import TryUseArray from '../pages/TryUseArray'
+import { Row } from '../components/lib'
 const AuthenticatedApp = () => {
   const { logout } = useAuth()
   return (
     <Container>
       <Header>
-        <HeaderLeft>
-          <div>logo</div> <div>项目</div> <div>用户</div>{' '}
+        <HeaderLeft gap={true} paddingLeft={1.2}>
+          <div>logo</div> <div>项目</div> <div>用户</div>
         </HeaderLeft>
         <HeaderRight>
           <button
@@ -47,10 +48,7 @@ const Header = styled.header`
   align-items: center;
 `
 
-const HeaderLeft = styled.div`
-  display: flex;
-  align-items: center;
-`
+const HeaderLeft = styled(Row)``
 const HeaderRight = styled.div``
 
 const Nav = styled.nav`
