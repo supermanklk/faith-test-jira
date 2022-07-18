@@ -1,5 +1,8 @@
 import React from 'react'
 import { useAuth } from '../context/authContext'
+import { Button, Input } from 'antd'
+
+import styled from '@emotion/styled'
 
 const UnauthenticatedApp = () => {
   const { login } = useAuth()
@@ -16,18 +19,30 @@ const UnauthenticatedApp = () => {
   return (
     <div>
       <form onSubmit={handleSubmit}>
-        <div>
-          <label htmlFor='username'>用户名</label>
-          <input type='text' id='username' />
-        </div>
-        <div>
-          <label htmlFor='password'>密码</label>
-          <input type='password' id='password' />
-        </div>
-        <button type='submit'>注册</button>
+        <UserInfoLable>
+          <Input placeholder='用户名' type='text' id='username' />
+        </UserInfoLable>
+        <UserInfoLable>
+          <Input placeholder='密码' type='password' id='password' />
+        </UserInfoLable>
+        <LoginButton type='primary' htmlType='submit'>
+          登录
+        </LoginButton>
       </form>
     </div>
   )
 }
+
+const UserInfoLable = styled.div`
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  margin-top: 1rem;
+`
+
+const LoginButton = styled(Button)`
+  width: 100%;
+  margin-top: 1.2rem;
+`
 
 export default UnauthenticatedApp

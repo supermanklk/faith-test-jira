@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import logo from './logo.svg'
 import './App.css'
 import { Card, Divider } from 'antd'
@@ -18,22 +18,37 @@ console.log(baseUrl)
 
 function App() {
   const { user } = useAuth()
+  const [isRegister, setIsRegister] = useState(false)
   // return <div style={{ display: 'flex', justifyContent: 'center' }}>{user ? <AuthenticatedApp /> : <UnauthenticatedApp />}</div>
 
   // 用css in js 代替 之前的内联写法
   return (
-    <Container>
-      <Header />
-      <Background />
-      {/* 此刻如果我们改写Card的样式 传统的方式就是去找这个组件给的属性比如 className 、bodyStyle 此刻我们可以直接通过 emotion来做 */}
-      {/* <Card>切换到{user ? '登录' : '注册'}</Card> */}
-      <CardWrapper>
-        <Title>请登录</Title>
-        {user ? <AuthenticatedApp /> : <UnauthenticatedApp />}
-        <Divider />
-        切换到{user ? '登录' : '注册'}
-      </CardWrapper>
-    </Container>
+    <>
+      {user ? (
+        <AuthenticatedApp />
+      ) : (
+        <Container>
+          <Header />
+          <Background />
+          {/* 此刻如果我们改写Card的样式 传统的方式就是去找这个组件给的属性比如 className 、bodyStyle 此刻我们可以直接通过 emotion来做 */}
+          {/* <Card>切换到{user ? '登录' : '注册'}</Card> */}
+          <CardWrapper>
+            <Title>请登录</Title>
+            <UnauthenticatedApp />
+            <Divider />
+            {
+              <a
+                href='#/'
+                onClick={() => {
+                  setIsRegister(!isRegister)
+                }}>
+                {isRegister ? `已经有了账号? 直接登录` : `没有账号? 注册新账号`}
+              </a>
+            }
+          </CardWrapper>
+        </Container>
+      )}
+    </>
   )
 }
 
