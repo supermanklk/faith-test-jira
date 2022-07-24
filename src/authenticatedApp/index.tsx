@@ -1,24 +1,33 @@
 import styled from '@emotion/styled'
 import React from 'react'
+import { Dropdown, Menu } from 'antd'
+import { ReactComponent as Logo } from '../logo.svg'
 import { useAuth } from '../context/authContext'
 import ProjectList from '../pages/ProjectList'
 import TryUseArray from '../pages/TryUseArray'
 import { Row } from '../components/lib'
 const AuthenticatedApp = () => {
-  const { logout } = useAuth()
+  const { logout, user } = useAuth()
   return (
     <Container>
       <Header>
         <HeaderLeft gap={true} paddingLeft={1.2}>
-          <div>logo</div> <div>项目</div> <div>用户</div>
+          <Logo width='5rem' height='5rem' />
+          <div>项目</div> <div>用户</div>
         </HeaderLeft>
-        <HeaderRight>
-          <button
-            onClick={() => {
-              logout()
-            }}>
-            退出
-          </button>
+        <HeaderRight gap={true} paddingRight={1.2}>
+          <Dropdown
+            overlay={
+              <Menu>
+                <Menu.Item key={'logout'}>
+                  <a href='javascript:;' onClick={logout}>
+                    退出
+                  </a>
+                </Menu.Item>
+              </Menu>
+            }>
+            <a onClick={(e) => e.preventDefault()}>hi,{user?.name}</a>
+          </Dropdown>
         </HeaderRight>
       </Header>
       <Nav>left</Nav>
@@ -41,15 +50,17 @@ const Container = styled.div`
 `
 
 const Header = styled.header`
-  background: gray;
+  /* background: gray; */
   grid-area: header;
   display: flex;
   justify-content: space-between;
   align-items: center;
+  box-shadow: 0 0 5px 0 rgba(0, 0, 0, 0.1);
+  z-index: 1;
 `
 
 const HeaderLeft = styled(Row)``
-const HeaderRight = styled.div``
+const HeaderRight = styled(Row)``
 
 const Nav = styled.nav`
   background-color: yellow;

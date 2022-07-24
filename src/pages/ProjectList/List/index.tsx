@@ -1,6 +1,8 @@
 import React from 'react'
+import { Table } from 'antd'
 import { User } from '../SearchPanel/index'
 import './index.css'
+import dayjs from 'dayjs'
 
 interface Project {
   id: string
@@ -15,26 +17,33 @@ interface ListProps {
 }
 
 const List = ({ list, users }: ListProps) => {
+  const columns = [
+    {
+      title: '名称',
+      dataIndex: 'name',
+      key: 'name'
+    },
+    {
+      title: '负责人',
+      dataIndex: 'personId',
+      key: 'personId',
+      render: (value: string) => {
+        return users.find((user) => user.id === value)?.name || '未知'
+      }
+    },
+    {
+      title: '创建时间',
+      dataIndex: 'created',
+      key: 'created',
+      render: (text: string) => {
+        return text ? dayjs(text).format('YYYY-MM-DD HH:mm:ss') : '无'
+      }
+    }
+  ]
+
   return (
     <div className='listContent'>
-      <table>
-        <thead>
-          <tr>
-            <th>名称</th>
-            <th>负责人</th>
-          </tr>
-        </thead>
-        <tbody>
-          {list.map((project) => {
-            return (
-              <tr key={project.id}>
-                <td>{project.name}</td>
-                <td>{users.find((user) => user.id === project.personId)?.name || '未知'}</td>
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
+      <Table dataSource={list} columns={columns} />;
     </div>
   )
 }

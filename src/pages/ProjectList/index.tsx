@@ -7,6 +7,7 @@ import qs from 'qs'
 import { cleanObject } from '../../utils'
 import { useDebounce } from '../../customHooks/coustomDebounce'
 import { useHttp } from '../../utils/http'
+import styled from '@emotion/styled'
 const apiUrl = process.env.REACT_APP_API_URL
 const ProjectList = () => {
   // function useState<S>(initialState: S | (() => S)): [S, Dispatch<SetStateAction<S>>];
@@ -53,11 +54,16 @@ const ProjectList = () => {
   })
 
   return (
-    <div>
+    <Container>
+      <h1>项目列表</h1>
       <SearchPanel users={users} param={param} setParam={setParam} />
       <List users={users} list={list} />
-    </div>
+    </Container>
   )
 }
+
+const Container = styled.div`
+  padding: 3.2rem;
+`
 
 export default ProjectList
